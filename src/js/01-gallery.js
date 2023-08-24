@@ -1,34 +1,35 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-
 console.log(galleryItems);
-/* <li class="gallery__item">
-    <a class="gallery__link" href="large-image.jpg">
-        <img
-            class="gallery__image"
-            src="small-image.jpg"
-            data-source="large-image.jpg"
-            alt="Image description"
-        />
-    </a>
-</li> */
-function createImageCards(img) {
-    return galleryItems
-        .map(({ preview, original, description }) => {
-            return
-            `
-    <li class="gallery__item">
-     <a class="gallery__link" href="${original}">
-        <img
-            class="gallery__image"
-            src="${preview}"
-            data-source="${original}"
-            alt="${description}"
-        />
-     </a>
-    </li>
-    `;
-        })
+
+const gallery = document.querySelector('.gallery');
+const imgCards = createImgCards(galleryItems);
+gallery.insertAdjacentHTML('beforeend', imgCards);
+gallery.addEventListener('click', onImgCardClick);
+//const imgLink = document.querySelector('gallery__link');
+//imgLink.preventDefault();
+function createImgCards(galleryItems) {
+    return galleryItems.map(({ original, preview, description }) => {
+        return `   <li class="gallery__item">
+        <a class="gallery__link" href="${original}">
+            <img
+                class="gallery__image"
+                src="${preview}"
+                data-source="${original}"
+                alt="${description}"
+            />
+        </a>
+    </li>`
+    }).join('');
+
+}
+function onImgCardClick(event) {
+    event.preventDefault();
+    if (!event.target.classList.contains('gallery__image')) {
+        return;
+    }
+    console.log("img");
 }
 
-console.log(galleryItems[0]);
+const imageInstance = basicLightbox.creat(document.querySelector('.gallery__image'));
+document.querySelector('.gallery__image').onclick = imageInstance.show;
