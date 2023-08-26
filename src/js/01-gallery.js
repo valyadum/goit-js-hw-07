@@ -21,15 +21,32 @@ function createImgCards(galleryItems) {
         </a>
     </li>`
     }).join('');
-
+    
 }
 function onImgCardClick(event) {
     event.preventDefault();
     if (!event.target.classList.contains('gallery__image')) {
         return;
     }
-    console.log("img");
+    console.log(event.target.alt);
+    const item = `<img width="1400" height="900" src="${event.target.dataset.source}" alt = "${event.target.alt}">`;
+    const instance = basicLightbox.create(item);
+    instance.show();
+    window.addEventListener('keydown', (event) => {
+        
+        if (event.code === 'Escape') {
+           console.log(event); 
+            instance.close();
+        }
+    })
 }
+// function closeLightbox() {
+//     instance.close()
+// }
+// function showLightBox(event) {
+//     console.log(event.target);
+//      basicLightbox.create(`
+// 		<img width="1400" height="900" src="${galleryItems.original}">
+// 	 `).show()
+// }
 
-const imageInstance = basicLightbox.creat(document.querySelector('.gallery__image'));
-document.querySelector('.gallery__image').onclick = imageInstance.show;
