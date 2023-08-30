@@ -23,7 +23,7 @@ function createImgCards(galleryItems) {
 }
 function onImgCardClick(event) {
     event.preventDefault();
-    if (!event.target.classList.contains('gallery__image')) {
+    if (event.target.nodeName !==  "IMG") {
         return;
     }
     const item = `<img width="1400" height="900" src="${event.target.dataset.source}" alt = "${event.target.alt}">`;
